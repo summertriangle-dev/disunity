@@ -50,7 +50,7 @@ public class TextureAssetExtractor extends AbstractAssetExtractor {
         L.log(Level.INFO, "Working on ''{0}''", objectData.instance().getString("m_Name"));
         L.log(Level.INFO, "{0}x{1}", new Object[] {objectData.instance().getUInt32("m_Width"), objectData.instance().getUInt32("m_Height")});
         for (FieldNode node : objectData.instance()) {
-            L.log(Level.DEBUG, "{0}", node.getType());
+            L.log(Level.FINE, "{0}", node.getType());
         }
         L.log(Level.INFO, "{0}", objectData.instance().getUInt32("m_CompleteImageSize"));
         
