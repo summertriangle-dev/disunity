@@ -3,10 +3,26 @@ DisUnity
 
 An experimental command-line toolset for Unity asset and asset bundle files, mostly designed for extraction.
 
+My fork adds back extracting support for Texture2D.
+
+Building
+--------
+
+Install maven first. 
+```bash
+mvn clean
+mvn package
+```
+
+Known issues
+------------
+
+- It can't extract shiburin's face (I'm serious).
+
 Download
 --------
 
-The latest build can be found on the [releases page](https://github.com/ata4/disunity/releases).
+~~The latest build can be found on the [releases page](https://github.com/ata4/disunity/releases).~~ You should build from source.
 
 Usage
 -----
