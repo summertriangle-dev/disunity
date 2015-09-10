@@ -9,6 +9,7 @@
  */
 package info.ata4.disunity.cli.command;
 
+import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import info.ata4.disunity.extract.AssetExtractor;
 import info.ata4.disunity.extract.AudioClipExtractor;
@@ -16,6 +17,8 @@ import info.ata4.disunity.extract.FontExtractor;
 import info.ata4.disunity.extract.MovieTextureExtractor;
 import info.ata4.disunity.extract.ShaderExtractor;
 import info.ata4.disunity.extract.TextAssetExtractor;
+import info.ata4.disunity.extract.TextureAssetExtractor;
+import info.ata4.disunity.cli.converters.PathConverter;
 import info.ata4.io.util.PathUtils;
 import info.ata4.unity.asset.AssetFile;
 import info.ata4.unity.rtti.ObjectData;
@@ -35,6 +38,13 @@ import java.util.List;
 )
 public class ExtractCommand extends AssetFileCommand {
     
+    @Parameter(
+        names = {"-d", "--output-directory"},
+        description = "Output directory",
+        converter = PathConverter.class
+    )
+    private Path outputDir;
+
     private final List<AssetExtractor> extractors = new ArrayList<>();
     
     public ExtractCommand() {
@@ -43,11 +53,14 @@ public class ExtractCommand extends AssetFileCommand {
         extractors.add(new AudioClipExtractor());
         extractors.add(new MovieTextureExtractor());
         extractors.add(new FontExtractor());
+        extractors.add(new TextureAssetExtractor());
     }
 
     @Override
     public void handleAssetFile(AssetFile asset) throws IOException {
-        Path outputDir = PathUtils.removeExtension(getCurrentFile());
+        if (outputDir == null) {
+            outputDir = PathUtils.removeExtension(getCurrentFile());
+        }
         
         // if getCurrentFile() has no extension, add a "_" to the path so a new
         // directory with that name won't collide with the file

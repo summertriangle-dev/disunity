@@ -49,6 +49,11 @@ public class ObjectInfo extends UnityStruct {
         classID = in.readShort();
         isDestroyed = in.readShort();
 
+        // an extra int was added 
+        if (versionInfo.assetVersion() == 15) {
+            in.readInt();
+        }
+
         assert typeID == classID || (classID == 114 && typeID < 0);
     }
 
